@@ -112,3 +112,18 @@ let from_file path =
   close_in infile ;
   final_graph
   
+let export path graph = 
+
+  let ff = open_out path in
+    fprintf ff "digraph finite_state_machine {\n
+    fontname=\"Helvetica,Arial,sans-serif\"\n
+	  node [fontname=\"Helvetica,Arial,sans-serif\"]\n
+	  edge [fontname=\"Helvetica,Arial,sans-serif\"]\n
+	  rankdir=LR;\n
+    node [shape = circle];\n ";
+
+    Graph.e_iter graph (fun a -> fprintf ff "%d -> %d [label = %s];\n" a.src a.tgt a.lbl) ;
+
+    fprintf ff "}\n" ; 
+
+    ()

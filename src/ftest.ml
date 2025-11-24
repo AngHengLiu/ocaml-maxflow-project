@@ -2,7 +2,7 @@ open Gfile
     
 let () =
 
-  (* Check the number of command-line arguments *)
+  (*(* Check the number of command-line arguments *)
   if Array.length Sys.argv <> 5 then
     begin
       Printf.printf
@@ -31,5 +31,7 @@ let () =
   (* Rewrite the graph that has been read. *)
   let () = write_file outfile graph in
 
-  ()
+  ()*)
+
+  export "../test1.svg" (from_file "./graphs/graph1.txt")
 
