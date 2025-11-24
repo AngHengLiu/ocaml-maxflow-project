@@ -2,8 +2,8 @@
 open Graph
 
 (* assert false is of type ∀α.α, so the type-checker is happy. *)
-let clone_nodes gr = n_fold gr new_node empty_graph
-let gmap gr f = Graph.e_fold gr (fun b a -> new_arc b {src = a.src; tgt = a.tgt; lbl = f a.lbl}) clone_nodes
+let clone_nodes gr = n_fold gr new_node empty_graph 
+let gmap gr f = Graph.e_fold gr (fun b a -> new_arc b {src = a.src; tgt = a.tgt; lbl = f a.lbl}) (clone_nodes gr)
 (* Replace _gr and _f by gr and f when you start writing the real function. *)
 let add_arc g id1 id2 n = 
     match Graph.find_arc g id1 id2 with 

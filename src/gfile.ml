@@ -120,7 +120,11 @@ let export path graph =
 	  node [fontname=\"Helvetica,Arial,sans-serif\"]\n
 	  edge [fontname=\"Helvetica,Arial,sans-serif\"]\n
 	  rankdir=LR;\n
-    node [shape = circle];\n ";
+    node [shape = circle];";
+
+    Graph.n_iter graph (fun id -> fprintf ff "%d " id);
+
+    fprintf ff "\n";
 
     Graph.e_iter graph (fun a -> fprintf ff "%d -> %d [label = %s];\n" a.src a.tgt a.lbl) ;
 
