@@ -33,5 +33,5 @@ let () =
 
   ()*)
 
-  export "../test1.svg" (from_file "./graphs/graph1.txt")
+  export "../test1.svg" (clone_nodes (from_file "./graphs/graph1.txt"))
 
