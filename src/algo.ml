@@ -11,7 +11,7 @@ let update_graph graph flow_path flow =
   in 
   aux graph flow_path flow
 
-  
+let find_flow flow_path = List.fold_left (fun acu arc -> min acu arc.lbl) max_int flow_path
 
 (*functions to find a flow path*)
 
@@ -31,7 +31,7 @@ let rec visit_node graph node tgt flow_path =
         | arc::rest -> 
 
           (*the target node has not been visited yet*)
-          if (not (List.mem arc flow_path)) then 
+          if (not (List.mem arc flow_path) && arc.lbl > 0) then 
             match visit_node graph arc.tgt tgt (List.cons arc flow_path) with 
               | None -> find_visit rest flow_path (* If we didn't find a solution we continue to iterate*)
               | Some fp -> Some fp
@@ -45,4 +45,22 @@ let search_flow_path graph src tgt =
   match visit_node graph src tgt [] with 
     | None -> None 
     | Some fp -> Some (List.rev fp)
+
+let print_edge g = 
+  Printf.printf "\n";
+  e_iter g (fun arc -> Printf.printf "[ %d -> %d ]" arc.src arc.tgt);
+  Printf.printf "\n"
+
+(*Ford-Flukerson algo*)
+let rec main_loop graph src tgt = 
+
+  let fpath = search_flow_path graph src tgt in 
+    match fpath with 
+    | None -> graph
+    | Some fp -> main_loop (update_graph graph fp (find_flow fp)) src tgt
+
+
+let ford_fulkerson graph src tgt = 
+  main_loop graph src tgt
+
 

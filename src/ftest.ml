@@ -1,6 +1,6 @@
 open Gfile
 open Algo
-open Graph
+open Tools
 
     
 let () =
@@ -49,11 +49,21 @@ let () =
   (*(e_iter (from_file "./graphs/graph1.txt") (fun e -> printf "%d %d %s" e.src e.tgt ))*)
 
 
-  export "../test.svg" (from_file "./graphs/graph2.txt");
+  (*export "../test.svg" (from_file "./graphs/graph2.txt");
 
-  let fpath =  
-    match search_flow_path (from_file "./graphs/graph2.txt") 4 9 with 
-    | None -> []
-    | Some l -> l
+  let print =  
+    match search_flow_path (from_file "./graphs/graph2.txt") 0 12 with 
+    | None -> Printf.printf "No path found"
+    | Some l -> List.iter (fun arc -> Printf.printf "[ %d -> %d ]" arc.src arc.tgt) l
   in 
-    List.iter (fun arc -> Printf.printf "[ %d -> %d ]" arc.src arc.tgt) fpath
+  print
+    *)
+
+
+  (*TEST FORD-FULKERSON*)
+
+  let graph = from_file "./graphs/graph2.txt" in
+
+    export "../graph.svg" graph;
+
+    export "../result.svg" (gmap (ford_fulkerson (gmap graph (fun x -> int_of_string x)) 0 12) (fun x -> string_of_int x));
