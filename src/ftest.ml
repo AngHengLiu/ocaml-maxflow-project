@@ -1,5 +1,7 @@
 open Gfile
-open Tools
+open Algo
+open Graph
+
     
 let () =
 
@@ -34,9 +36,24 @@ let () =
 
   ()*)
 
+  (* TEST EXPORT
+
   export "../test1.svg" (clone_nodes (from_file "./graphs/graph1.txt"));
-
   export "../test2.svg" (gmap (from_file "./graphs/graph1.txt") (fun a -> a^"&"));
+  export "../test3.svg" (gmap(add_arc (gmap (from_file "./graphs/graph1.txt") (fun s -> int_of_string s)) 3 4 1000) (fun n -> string_of_int n))*)
 
-  export "../test3.svg" (gmap(add_arc (gmap (from_file "./graphs/graph1.txt") (fun s -> int_of_string s)) 3 4 1000) (fun n -> string_of_int n))
 
+  (*TEST SEARCH FLOW PATH*)
+
+
+  (*(e_iter (from_file "./graphs/graph1.txt") (fun e -> printf "%d %d %s" e.src e.tgt ))*)
+
+
+  export "../test.svg" (from_file "./graphs/graph2.txt");
+
+  let fpath =  
+    match search_flow_path (from_file "./graphs/graph2.txt") 4 9 with 
+    | None -> []
+    | Some l -> l
+  in 
+    List.iter (fun arc -> Printf.printf "[ %d -> %d ]" arc.src arc.tgt) fpath
