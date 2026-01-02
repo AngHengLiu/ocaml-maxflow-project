@@ -42,4 +42,4 @@ let () =
   export "./test3.svg" (gmap(add_other_arc (gmap (from_file "./graphs/graph1.txt") (fun s -> int_of_string s)) 3 4 1000) (fun n -> string_of_int n))*)
 
   (* The functions take int graphs as arguments, whereas the files take string graphs *)
-  export "./test.svg" (gmap (add_other_arc_for_all (gmap (from_file "./graphs/graph1.txt") (fun s -> int_of_string s))) (fun n -> string_of_int n))
+  export "./test.txt" (gmap (create_tuple_graph (gmap (from_file "./graphs/graph1.txt") (fun s -> int_of_string s))) (fun n -> string_of_tuple n))
