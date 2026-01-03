@@ -126,7 +126,7 @@ let export path graph =
 
     fprintf ff "\n";
 
-    Graph.e_iter graph (fun a -> fprintf ff "%d -> %d [label = %s];\n" a.src a.tgt a.lbl) ;
+    Graph.e_iter graph (fun a -> fprintf ff "%d -> %d [label = \"%s\"];\n" a.src a.tgt a.lbl) ;
 
     fprintf ff "}\n" ; 
 
