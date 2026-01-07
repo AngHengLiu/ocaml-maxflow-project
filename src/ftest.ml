@@ -62,13 +62,21 @@ let () =
 
   (*TEST FORD-FULKERSON*)
 
-  let graph = from_file "./graphs/graph2.txt" in
+  (*let graph = from_file "./graphs/graph2.txt" in
   
-    export "../graph.svg" graph;
+    export "./graph.txt" graph;
 
-    export "../result.svg" (gmap (ford_fulkerson (gmap graph (fun x -> int_of_string x)) 0 12) (fun x -> string_of_int x));
+    (* On ne peut plus trouver de chemin de 0 à 12 *)
+    export "./result.txt" (gmap (ford_fulkerson (gmap graph (fun x -> int_of_string x)) 0 12) (fun x -> string_of_int x));*)
+
+  (* Writing a graph text file to be tranformed to a string graph by from_file of the final residual graph *)
+  (*let graph = from_file "./graphs/graph2.txt" in
+    write_file "./res.txt" (gmap (ford_fulkerson (gmap graph (fun x -> int_of_string x)) 0 12) (fun x -> string_of_int x))*)
+
+  let graph = from_file "./graphs/graph2.txt" in
+    export "./flow.txt" (gmap (res_to_flow_gr (gmap graph (fun s -> int_of_string s)) (gmap (from_file "./res.txt") (fun s -> int_of_string s))) (fun t -> string_of_tuple t))
     
-  export "./test3.svg" (gmap(add_other_arc (gmap (from_file "./graphs/graph1.txt") (fun s -> int_of_string s)) 3 4 1000) (fun n -> string_of_int n))*)
+  (*export "./test3.txt" (gmap(add_other_arc (gmap (from_file "./graphs/graph1.txt") (fun s -> int_of_string s)) 3 4 1000) (fun n -> string_of_int n))*)
 
   (* The functions take int graphs as arguments, whereas the files take string graphs
   export "./test.txt" (gmap (create_tuple_graph (gmap (from_file "./graphs/graph1.txt") (fun s -> int_of_string s))) (fun n -> string_of_tuple n))*)
@@ -77,4 +85,4 @@ let () =
   (*let org_gr = gmap (from_file "./graphs/graph1.txt") (fun s -> int_of_string s)
   let res_gr = add_other_arc_for_all (gmap (from_file "./graphs/graph1.txt") (fun s -> int_of_string s))*)
 
-  export "./res_to_flow_test.txt" (gmap (res_to_flow_gr (gmap (from_file "./graphs/graph1.txt") (fun s -> int_of_string s)) (add_other_arc_for_all (gmap (from_file "./graphs/graph1.txt") (fun s -> int_of_string s)))) (fun t -> string_of_tuple t))
+  (*export "./res_to_flow_test.txt" (gmap (res_to_flow_gr (gmap (from_file "./graphs/graph1.txt") (fun s -> int_of_string s)) (add_other_arc_for_all (gmap (from_file "./graphs/graph1.txt") (fun s -> int_of_string s)))) (fun t -> string_of_tuple t))*)
