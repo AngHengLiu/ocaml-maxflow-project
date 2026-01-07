@@ -17,4 +17,5 @@ val write_file: path -> string graph -> unit
    https://algorithms.discrete.ma.tum.de/graph-algorithms/flow-ford-fulkerson/index_en.html
 *)
 
+(*export a string graph to a svg file*)
 val export: path ->string graph-> unit  
