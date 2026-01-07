@@ -52,16 +52,16 @@ let print_edge g =
   Printf.printf "\n"
 
 (*Ford-Flukerson algo*)
-let rec main_loop graph src tgt = 
+let rec ford_flukerson_loop graph src tgt = 
 
   let fpath = search_flow_path graph src tgt in 
     match fpath with 
     | None -> graph
-    | Some fp -> main_loop (update_graph graph fp (find_flow fp)) src tgt
+    | Some fp -> ford_flukerson_loop (update_graph graph fp (find_flow fp)) src tgt
 
 
 let ford_fulkerson graph src tgt = 
-  main_loop graph src tgt
+  ford_flukerson_loop graph src tgt
 
 (* For dealing with different types of graphs *)
 
