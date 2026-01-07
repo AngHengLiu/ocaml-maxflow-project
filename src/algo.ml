@@ -46,10 +46,10 @@ let search_flow_path graph src tgt =
     | None -> None 
     | Some fp -> Some (List.rev fp)
 
-let print_edge g = 
+(*let print_edge g = 
   Printf.printf "\n";
   e_iter g (fun arc -> Printf.printf "[ %d -> %d ]" arc.src arc.tgt);
-  Printf.printf "\n"
+  Printf.printf "\n"*)
 
 (*Ford-Flukerson algo*)
 let rec ford_flukerson_loop graph src tgt = 
@@ -63,7 +63,7 @@ let rec ford_flukerson_loop graph src tgt =
 let ford_fulkerson graph src tgt = 
   ford_flukerson_loop graph src tgt
 
-(* For dealing with different types of graphs *)
+(* ================== For dealing with different types of graphs ====================== *)
 
 (* Turns tuple into string for exporting graphs *)
 let string_of_tuple t = match t with
