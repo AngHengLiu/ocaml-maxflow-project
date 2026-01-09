@@ -5,7 +5,7 @@ open Tools
     
 let () =
 
-  (*(* Check the number of command-line arguments *)
+  (* Check the number of command-line arguments *)
   if Array.length Sys.argv <> 5 then
     begin
       Printf.printf
@@ -34,52 +34,57 @@ let () =
   (* Rewrite the graph that has been read. *)
   let () = write_file outfile graph in
 
-  ()*)
+  () (*<===== WE HAVE TO REPLACE IT*)
+;;
 
-  (* TEST EXPORT
+  (* TEST TOOLS *)
 
-  export "../test1.svg" (clone_nodes (from_file "./graphs/graph1.txt"));
-  export "../test2.svg" (gmap (from_file "./graphs/graph1.txt") (fun a -> a^"&"));
-  export "../test3.svg" (gmap(add_arc (gmap (from_file "./graphs/graph1.txt") (fun s -> int_of_string s)) 3 4 1000) (fun n -> string_of_int n))*)
+  let test_clone_nodes infile outfile = 
+    export outfile (clone_nodes (from_file infile))
+  ;;
+
+  let test_gmap infile outfile = 
+    export outfile (gmap (from_file infile) (fun a -> a^"&"));
+  ;;
+
+  let test_add_arc infile outfile src sink nb = 
+    export outfile (gmap(add_arc (gmap (from_file infile) (fun s -> int_of_string s)) src sink nb) (fun n -> string_of_int n))
+  ;;
 
 
   (*TEST SEARCH FLOW PATH*)
 
-
-  (*(e_iter (from_file "./graphs/graph1.txt") (fun e -> printf "%d %d %s" e.src e.tgt ))*)
-
-
-  (*export "../test.svg" (from_file "./graphs/graph2.txt");
-
-  let print =  
-    match search_flow_path (from_file "./graphs/graph2.txt") 0 12 with 
+  (*let test_search_flow_path infile src sink =  
+    let print_arc arc = fun arc -> Printf.printf "[ %d -> %d ]" arc.src arc.tgt in 
+    match search_flow_path (gmap (from_file infile) (fun s -> int_of_string s)) src sink with 
     | None -> Printf.printf "No path found"
-    | Some l -> List.iter (fun arc -> Printf.printf "[ %d -> %d ]" arc.src arc.tgt) l
+    | Some l -> List.iter print_arc l
   in 
-  print
-    *)
-
+  print*)
+    
 
   (*TEST FORD-FULKERSON*)
 
-  (*let graph = from_file "./graphs/graph2.txt" in
+(* Writing a graph text file to be tranformed to a string graph by from_file of the final residual graph *)
+  let test_ford_fulkerson infile outfile src sink = 
+    let graph = from_file infile in
+      export outfile (gmap (ford_fulkerson (gmap graph (fun x -> int_of_string x)) src sink) (fun x -> string_of_int x))
+  ;;
+
+  (*let test_res_to_flow_gr infile outfile = 
+    let graph = from_file infile in
+      export export (gmap (res_to_flow_gr (gmap graph (fun s -> int_of_string s)) (gmap (from_file outfile) (fun s -> int_of_string s))) (fun t -> string_of_tuple t))
+  ;;
   
-    export "./graph.txt" graph;
+  let test_add_other_arc infile outfile src sink nb = 
+    export outfile (gmap(add_other_arc (gmap (from_file infile) (fun s -> int_of_string s)) src sink nb) (fun n -> string_of_int n))
+  ;;*)
 
-    (* On ne peut plus trouver de chemin de 0 à 12 *)
-    export "./result.txt" (gmap (ford_fulkerson (gmap graph (fun x -> int_of_string x)) 0 12) (fun x -> string_of_int x));*)
+  (* The functions take int graphs as arguments, whereas the files take string graphs*)
 
-  (* Writing a graph text file to be tranformed to a string graph by from_file of the final residual graph *)
-  (*let graph = from_file "./graphs/graph2.txt" in
-    write_file "./res.txt" (gmap (ford_fulkerson (gmap graph (fun x -> int_of_string x)) 0 12) (fun x -> string_of_int x))*)
-
-  let graph = from_file "./graphs/graph2.txt" in
-    export "./flow.txt" (gmap (res_to_flow_gr (gmap graph (fun s -> int_of_string s)) (gmap (from_file "./res.txt") (fun s -> int_of_string s))) (fun t -> string_of_tuple t))
-    
-  (*export "./test3.txt" (gmap(add_other_arc (gmap (from_file "./graphs/graph1.txt") (fun s -> int_of_string s)) 3 4 1000) (fun n -> string_of_int n))*)
-
-  (* The functions take int graphs as arguments, whereas the files take string graphs
-  export "./test.txt" (gmap (create_tuple_graph (gmap (from_file "./graphs/graph1.txt") (fun s -> int_of_string s))) (fun n -> string_of_tuple n))*)
+  let test_create_tuple_graph infile outfile =
+    export outfile (gmap (create_tuple_graph (gmap (from_file infile) (fun s -> int_of_string s))) (fun n -> string_of_tuple n))
+  ;;
 
   (* Creates residual graph *)
   (*let org_gr = gmap (from_file "./graphs/graph1.txt") (fun s -> int_of_string s)
