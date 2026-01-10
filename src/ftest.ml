@@ -71,6 +71,19 @@ let () =
       export outfile (gmap (ford_fulkerson (gmap graph (fun x -> int_of_string x)) src sink) (fun x -> string_of_int x))
   ;;
 
+ (* Turns the graph that is a result of the algo into a proper residual graph *)
+  let test_add_other_arc_for_all infile outfile =
+    let graph = from_file infile in
+      export outfile (gmap (add_other_arc_for_all (gmap graph (fun s -> int_of_string s))) (fun n -> string_of_int n))
+  ;;
+
+  (* Takes the residual graph and transforms it into a flow graph *)
+  let test_res_to_flow_gr infile outfile src sink =
+    let org_gr = gmap (from_file infile) (fun s -> int_of_string s) in
+    let res_gr = add_other_arc_for_all (ford_fulkerson org_gr src sink) in
+      export outfile (gmap (res_to_flow_gr org_gr res_gr) (fun t -> string_of_tuple t))
+  ;;
+  
   (*let test_res_to_flow_gr infile outfile = 
     let graph = from_file infile in
       export export (gmap (res_to_flow_gr (gmap graph (fun s -> int_of_string s)) (gmap (from_file outfile) (fun s -> int_of_string s))) (fun t -> string_of_tuple t))
@@ -82,9 +95,9 @@ let () =
 
   (* The functions take int graphs as arguments, whereas the files take string graphs*)
 
-  let test_create_tuple_graph infile outfile =
+  (*let test_create_tuple_graph infile outfile =
     export outfile (gmap (create_tuple_graph (gmap (from_file infile) (fun s -> int_of_string s))) (fun n -> string_of_tuple n))
-  ;;
+  ;;*)
 
   (* Creates residual graph *)
   (*let org_gr = gmap (from_file "./graphs/graph1.txt") (fun s -> int_of_string s)
