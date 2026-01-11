@@ -54,13 +54,11 @@ let () =
 
   (*TEST SEARCH FLOW PATH*)
 
-  (*let test_search_flow_path infile src sink =  
-    let print_arc arc = fun arc -> Printf.printf "[ %d -> %d ]" arc.src arc.tgt in 
+  let test_search_flow_path infile src sink = 
     match search_flow_path (gmap (from_file infile) (fun s -> int_of_string s)) src sink with 
     | None -> Printf.printf "No path found"
-    | Some l -> List.iter print_arc l
-  in 
-  print*)
+    | Some l -> List.iter (fun (arc : 'a Graph.arc) -> Printf.printf "[ %d -> %d ]" arc.src arc.tgt) l
+  
     
 
   (*TEST FORD-FULKERSON*)
@@ -86,10 +84,10 @@ let () =
   
   (*let test_res_to_flow_gr infile outfile = 
     let graph = from_file infile in
-      export export (gmap (res_to_flow_gr (gmap graph (fun s -> int_of_string s)) (gmap (from_file outfile) (fun s -> int_of_string s))) (fun t -> string_of_tuple t))
-  ;;
+      export outfile (gmap (res_to_flow_gr (gmap graph (fun s -> int_of_string s)) (gmap (from_file outfile) (fun s -> int_of_string s))) (fun t -> string_of_tuple t))
+  ;;*)
   
-  let test_add_other_arc infile outfile src sink nb = 
+  (*let test_add_other_arc infile outfile src sink nb = 
     export outfile (gmap(add_other_arc (gmap (from_file infile) (fun s -> int_of_string s)) src sink nb) (fun n -> string_of_int n))
   ;;*)
 
