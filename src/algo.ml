@@ -88,3 +88,20 @@ let res_to_flow_gr org_gr res_gr =
     
     e_fold res_gr update_label flow_gr
 
+
+
+(* ================== For hosts and guests problem ====================== *)
+
+(*return the list of nodes of guests *)
+let rec get_guests = function 
+  | 0 -> []
+  | nb -> (nb - 1)::(get_guests (nb - 1)) 
+
+(*return the list of nodes of hosts *)
+let rec get_guests nb_guests = function 
+  | 0 -> []
+  | nb -> (nb_guests + nb - 1)::(get_guests (nb - 1)) 
+
+(*add source and sink to solve the problem*)
+let add_src_and_sink graph nb_guests nb_hosts = 
+  (new_node )
