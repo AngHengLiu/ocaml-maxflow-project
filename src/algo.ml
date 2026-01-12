@@ -98,10 +98,25 @@ let rec get_guests = function
   | nb -> (nb - 1)::(get_guests (nb - 1)) 
 
 (*return the list of nodes of hosts *)
-let rec get_guests nb_guests = function 
+let rec get_hosts nb_guests = function 
   | 0 -> []
-  | nb -> (nb_guests + nb - 1)::(get_guests (nb - 1)) 
+  | nb -> (nb_guests + nb - 1)::(get_hosts nb_guests (nb - 1)) 
 
 (*add source and sink to solve the problem*)
-let add_src_and_sink graph nb_guests nb_hosts = 
-  (new_node )
+let prepare_hosts_graph extended_graph nb_guests nb_hosts = 
+  
+  let src = nb_guests + nb_hosts in 
+  let sink = nb_guests + nb_hosts + 1 in 
+
+  let add_nodes_graph = 
+    (* add sink and source*)
+    (new_node (new_node extended_graph.graph src) sink)
+  in 
+    let add_edges_to_src_graph = 
+      (* add edgdes from src to nodes of guests. The capacity tolds which lbl to add in each edge *)
+      List.fold_left (fun graph node -> add_arc graph src node (find_capacity extended_graph.capacity node)) add_nodes_graph (get_guests nb_guests) 
+    in 
+      (* add edgdes from nodes of hoststo sink. The capacity tolds which lbl to add in each edge *)
+      List.fold_left (fun graph node -> add_arc graph node sink (find_capacity extended_graph.capacity node)) add_edges_to_src_graph (get_hosts nb_guests nb_hosts)
+    
+    

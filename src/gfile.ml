@@ -54,7 +54,7 @@ let write_file path graph =
 
 (* Reads a line with a node. *)
 let read_node graph line =
-  try Scanf.sscanf line "n %f %f %d" (fun _ _ id -> new_node graph id)
+  try let new_graph = Scanf.sscanf line "n %f %f %d" (fun _ _ id -> new_node graph.graph id) in {graph = new_graph ; capacity = graph.capacity}
   with e ->
     Printf.printf "Cannot read node in line - %s:\n%s\n%!" (Printexc.to_string e) line ;
     failwith "from_file"
@@ -65,10 +65,18 @@ let ensure graph id = if node_exists graph id then graph else new_node graph id
 
 (* Reads a line with an arc. *)
 let read_arc graph line =
-  try Scanf.sscanf line "e %d %d %_d %s@%%"
-        (fun src tgt lbl -> let lbl = String.trim lbl in new_arc (ensure (ensure graph src) tgt) { src ; tgt ; lbl } )
+  try let new_graph = Scanf.sscanf line "e %d %d %_d %s@%%"
+        (fun src tgt lbl -> let lbl = String.trim lbl in new_arc (ensure (ensure graph.graph src) tgt) { src ; tgt ; lbl } ) in 
+        {graph = new_graph ; capacity = graph.capacity }
   with e ->
     Printf.printf "Cannot read arc in line - %s:\n%s\n%!" (Printexc.to_string e) line ;
+    failwith "from_file"
+
+let read_capacity graph line = 
+  try let new_list = Scanf.sscanf line "c %d %d"
+        (fun id cap -> new_capacity graph.capacity id cap) in {graph = graph.graph ; capacity = new_list}
+  with e ->
+    Printf.printf "Cannot read capacity in line - %s:\n%s\n%!" (Printexc.to_string e) line ;
     failwith "from_file"
 
 (* Reads a comment or fail. *)
@@ -98,6 +106,7 @@ let from_file path =
         else match line.[0] with
           | 'n' -> read_node graph line
           | 'e' -> read_arc graph line
+          | 'c' -> read_capacity graph line
 
           (* It should be a comment, otherwise we complain. *)
           | _ -> read_comment graph line
@@ -107,7 +116,7 @@ let from_file path =
     with End_of_file -> graph (* Done *)
   in
 
-  let final_graph = loop empty_graph in
+  let final_graph = loop empty_extended_graph in
   
   close_in infile ;
   final_graph
