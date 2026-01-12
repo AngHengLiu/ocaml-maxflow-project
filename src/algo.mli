@@ -9,7 +9,6 @@ val ford_fulkerson : int graph -> id -> id -> int graph
 
 (* For flow graphs with tuple labels *)
 val string_of_tuple : int * int -> string
-val create_tuple_graph : int graph -> (int*int) graph
 
 (* For creating residual graphs *)
 val add_other_arc : int graph -> int arc -> int graph

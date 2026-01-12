@@ -64,10 +64,7 @@ let ford_fulkerson graph src tgt =
 let string_of_tuple t = match t with
     |(a,b) -> string_of_int(a) ^ "/" ^ string_of_int(b)
 
-(* Transforms int flow graph into tuple flow graph *)
-let create_tuple_graph gr = gmap gr (fun a -> (0,a))
-
-(* Adds an arc between two nodes, in the other direction than existing node*)
+(* Adds an arc between two nodes, in the other direction than existing node *)
 let add_other_arc gr a = add_arc gr a.tgt a.src 0
 
 (* Applies the above function on the whole graph *)
