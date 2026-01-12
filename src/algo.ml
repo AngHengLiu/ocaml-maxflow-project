@@ -46,7 +46,7 @@ let search_flow_path graph src tgt =
     | None -> None 
     | Some fp -> Some (List.rev fp)
 
-(*Ford-Flukerson algo*)
+(* Ford-Fulkerson algo *)
 let rec ford_flukerson_loop graph src tgt = 
 
   let fpath = search_flow_path graph src tgt in 
@@ -58,7 +58,7 @@ let rec ford_flukerson_loop graph src tgt =
 let ford_fulkerson graph src tgt = 
   ford_flukerson_loop graph src tgt
 
-(* ================== For dealing with different types of graphs ====================== *)
+(* ================== For the transformation of graphs ====================== *)
 
 (* Turns tuple into string for exporting graphs *)
 let string_of_tuple t = match t with
@@ -70,10 +70,10 @@ let add_other_arc gr a = add_arc gr a.tgt a.src 0
 (* Applies the above function on the whole graph *)
 let add_other_arc_for_all gr = e_fold gr add_other_arc gr
 
-(* Residual to (max) flow graph *)
+(* Turns residual graph to (max) flow graph *)
 let res_to_flow_gr org_gr res_gr = 
     
-    let flow_gr = clone_nodes org_gr in (* new graph <- nodes of original graph*)
+    let flow_gr = clone_nodes org_gr in
 
     let update_label a_flow_gr a_res_arc =
         match (find_arc org_gr a_res_arc.src a_res_arc.tgt) with
