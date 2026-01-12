@@ -16,3 +16,6 @@ val add_other_arc_for_all : int graph -> int graph
 
 (* For the tranformation of res graph to flow graph *)
 val res_to_flow_gr: int graph -> int graph -> (int*int) graph
+
+(* Transform the compatibility graph to a graph that can be use by our Ford-Fulkerson algorithm and return the transformed graph, the source and the sink*)
+val prepare_hosts_graph: int extended_graph -> int -> int -> (int graph * int * int )

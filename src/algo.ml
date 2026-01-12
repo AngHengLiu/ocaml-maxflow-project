@@ -114,6 +114,6 @@ let prepare_hosts_graph extended_graph nb_guests nb_hosts =
       List.fold_left (fun graph node -> add_arc graph src node (find_capacity extended_graph.capacity node)) add_nodes_graph (get_guests nb_guests) 
     in 
       (* add edgdes from nodes of hoststo sink. The capacity tolds which lbl to add in each edge *)
-      List.fold_left (fun graph node -> add_arc graph node sink (find_capacity extended_graph.capacity node)) add_edges_to_src_graph (get_hosts nb_guests nb_hosts)
+      List.fold_left (fun graph node -> add_arc graph node sink (find_capacity extended_graph.capacity node)) add_edges_to_src_graph (get_hosts nb_guests nb_hosts) , src, sink
     
     
