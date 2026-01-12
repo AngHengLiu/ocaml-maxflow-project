@@ -31,8 +31,9 @@ let () =
   let graph = from_file infile in
 
   (* Rewrite the graph that has been read. *)
-  let () = write_file outfile graph in
+  let () = write_file outfile graph.graph in
 
   test_ford_fulkerson infile outfile _source _sink (* <==== REPLACE THIS WITH WANTED TEST AND ARGUMENTS *)
   
+  (* solve_hosts_problem infile outfile nb_guests nb_hosts *)
 ;;
