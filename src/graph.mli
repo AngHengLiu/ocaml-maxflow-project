@@ -17,6 +17,14 @@ type 'a arc =
     (* Label *)
     lbl: 'a }
 
+  type 'a extended_graph = 
+  { (* graph *)
+    graph: 'a graph ;
+
+    (* Link a capacity to a node for the hosts problem *)
+    capacity: (id * int) list 
+  }
+
 exception Graph_error of string
 
 
@@ -24,6 +32,9 @@ exception Graph_error of string
 
 (* The empty graph. *)
 val empty_graph: 'a graph
+
+(* The empty extended graph *)
+val empty_extended_graph: 'a extended_graph
 
 (* Add a new node with the given identifier.
  * @raise Graph_error if the id already exists. *)
@@ -35,6 +46,7 @@ val new_node: 'a graph -> id -> 'a graph
  * @raise Graph_error if node src or tgt does not exist in the graph. *)
 val new_arc: 'a graph -> 'a arc -> 'a graph
 
+val new_capacity: (id * int)list -> id -> int -> (id * int) list
 
 (**************  GETTERS  *****************)
 
@@ -48,6 +60,8 @@ val out_arcs: 'a graph -> id -> 'a arc list
 (* find_arc gr id1 id2  finds an arc between id1 and id2. Returns None if the arc does not exist. 
 * @raise Graph_error if id1 is unknown. *)
 val find_arc: 'a graph -> id -> id -> 'a arc option
+
+val find_capacity: (id * int) list -> id -> int
 
 
 (**************  COMBINATORS, ITERATORS  **************)

@@ -42,9 +42,18 @@ type 'a arc =
 (* A graph is just a list of pairs: a node & its outgoing arcs. *)
 type 'a graph = (id * 'a arc list) list
 
+type 'a extended_graph = 
+  {graph: 'a graph;
+  capacity: (id * int) list
+} 
+
 exception Graph_error of string
 
 let empty_graph = []
+
+let empty_extended_graph = 
+  {graph = [] ;
+    capacity = [] }
 
 let node_exists gr id = List.mem_assoc id gr
 
@@ -69,6 +78,13 @@ let new_arc gr arc =
   (* Replace out-arcs in the graph. *)
   let gr2 = List.remove_assoc arc.src gr in
   (arc.src, outb) :: gr2
+
+let new_capacity cap_list id cap = (id , cap) :: cap_list
+
+let rec find_capacity cap_list node = 
+  match cap_list with 
+  | [] -> 0
+  | (n , cap) :: rest -> if n == node then cap else find_capacity rest node
 
 let n_iter gr f = List.iter (fun (id, _) -> f id) gr
 
