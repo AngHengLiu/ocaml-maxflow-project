@@ -57,5 +57,12 @@ To solve this problem, we implement *prepare_hosts_graph* that add a source, a s
 - *sink* : put the *number of hosts* instead of the sink
 - *outfile* : the output file.
 
+For the *compatibility-graphs/graph1.txt*, the number of guests is 10 and the number of hosts is 7.
+For the *compatibility-graphs/graph2.txt*, the number of guests is 3 and the number of hosts is 4.
+
+For example : 
+```bash
+./ftest.exe "./compatibility-graphs/graph2.txt" "3" "4" "../test.svg"
+```
 
 

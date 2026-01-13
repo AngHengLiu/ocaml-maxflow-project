@@ -52,6 +52,7 @@ let solve_hosts_problem infile outfile nb_guests nb_hosts =
   let infile_graph = from_file infile in 
   let int_graph = {graph = (gmap infile_graph.graph int_of_string); capacity = infile_graph.capacity} in 
     let (graph, src, sink) = prepare_hosts_graph int_graph nb_guests nb_hosts in 
-    export outfile (gmap (ford_fulkerson graph src sink) (fun x -> string_of_int x)) 
+    export outfile (gmap (res_to_flow_gr graph (add_other_arc_for_all((ford_fulkerson graph src sink)))) (fun x -> string_of_tuple x))
 ;;
   
+(*export outfile (gmap (res_to_flow_gr (add_other_arc_for_all((ford_fulkerson graph src sink))) graph ) (fun x -> string_of_tuple x)) *)
