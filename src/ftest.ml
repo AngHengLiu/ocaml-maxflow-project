@@ -33,6 +33,8 @@ let () =
   (* Rewrite the graph that has been read. *)
   let () = write_file outfile graph.graph in
 
-  (*test_ford_fulkerson infile outfile _source _sink *) (* <==== REPLACE THIS WITH WANTED TEST AND ARGUMENTS *)
+  (* ======================== You can test the functions under here ======================== *)
+
+  test_ford_fulkerson infile outfile _source _sink (* <==== Here you can test the Ford-Fulkerson algorithm *)
   
-  solve_hosts_problem infile outfile _source _sink
+  (* solve_hosts_problem infile outfile _source _sink*) (* <==== Here you can test the algorithm on a bipartite matching problem *)
