@@ -55,4 +55,3 @@ let solve_hosts_problem infile outfile nb_guests nb_hosts =
     export outfile (gmap (res_to_flow_gr graph (add_other_arc_for_all((ford_fulkerson graph src sink)))) (fun x -> string_of_tuple x))
 ;;
   
-(*export outfile (gmap (res_to_flow_gr (add_other_arc_for_all((ford_fulkerson graph src sink))) graph ) (fun x -> string_of_tuple x)) *)
