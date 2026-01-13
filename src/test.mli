@@ -17,3 +17,5 @@ val test_add_other_arc_for_all : string -> string -> int -> int -> unit
 
 val test_res_to_flow_gr : string -> string -> int -> int -> unit 
   
+(*SOLVE HOSTS PROBLEM*)
+val solve_hosts_problem : string -> string -> int -> int -> unit

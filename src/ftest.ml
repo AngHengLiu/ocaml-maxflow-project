@@ -35,5 +35,4 @@ let () =
 
   test_ford_fulkerson infile outfile _source _sink (* <==== REPLACE THIS WITH WANTED TEST AND ARGUMENTS *)
   
-  (* solve_hosts_problem infile outfile nb_guests nb_hosts *)
-;;
+  (*solve_hosts_problem infile outfile _source _sink*)
