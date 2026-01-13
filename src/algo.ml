@@ -1,6 +1,9 @@
 open Graph
 open Tools
 
+
+(* ================== For the Ford-Fulkerson algorithm ====================== *)
+
 type 'a flow_path = 'a arc list
 
 let update_graph graph flow_path flow = 
