@@ -1,6 +1,6 @@
 ## How to use
  - `make build` to compile. This creates an `ftest.exe` executable
- -  execute `ftest.exe` executable with wanted arguments
+ -  execute `ftest.exe` executable with wanted arguments.
     For example,
     ```bash
     ./ftest.exe "./graphs/graph5.txt" "0" "5" "../test1.txt"
